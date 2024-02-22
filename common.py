@@ -20,6 +20,25 @@ def request_chat_completion(
     )
     return response
 
+# 나의 캐릭터 챗봇 페르소나 출력
+def request_persona(
+    prompt, 
+    system_role="당신은 뛰어난 연기자입니다.",
+    model="gpt-3.5-turbo",
+    stream=False
+):
+    messages = [
+        {"role": "system", "content": system_role},
+        {"role": "user", "content": prompt}
+    ]
+    response = openai.chat.completions.create(
+        model=model,
+        messages=messages,
+        stream=stream
+    )
+    return response.choices[0].message.content
+    
+
 def print_streaming_response(response):
     message = ""
     placeholder = st.empty()
