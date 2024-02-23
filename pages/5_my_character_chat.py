@@ -277,8 +277,8 @@ if prompt := st.chat_input("채팅을 입력해주세요!"):
         st.markdown(prompt)
 
     # 채팅 메시지 컨테이너에 어시스턴트 응답 표시합니다.
-    with st.chat_message("assistant"):
-            # 이전 메시지와 함께 페르소나를 포함하여 채팅 완성 생성
+    with st.chat_message("assistant", avatar="./images/rocketgirl.png"):
+        # 이전 메시지와 함께 페르소나를 포함하여 채팅 완성 생성
         messages_with_persona = [
             {"role": "system", "content": persona},  # 페르소나 추가
             {"role": "user", "content": prompt},
