@@ -2,3 +2,6 @@ openai
 streamlit
 requests
 BeautifulSoup4
+SpeechRecognition
+gTTS
+pygame
