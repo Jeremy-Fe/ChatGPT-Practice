@@ -2,8 +2,6 @@ import streamlit as st
 import openai
 import speech_recognition as sr
 from gtts import gTTS
-import time
-import playsound
 import os
 import pygame
 
