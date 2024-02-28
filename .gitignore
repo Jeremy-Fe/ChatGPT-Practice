@@ -20,5 +20,5 @@ streamlit-GPT/
 
 #========================================
 #OPENAI_API_KEY
-secrets.toml
+.streamlit/secrets.toml
 

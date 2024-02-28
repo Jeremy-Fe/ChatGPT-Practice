@@ -5,7 +5,7 @@ from gtts import gTTS
 import time
 import playsound
 import os
-import pyaudio
+import pygame
 
 
 openai.api_key = st.secrets["OPENAI_API_KEY"]
@@ -80,7 +80,7 @@ def voiceToText():
         with sr.Microphone(device_index=1) as source:  # 예: device_index를 1로 설정
             print("say something: ")
             audio = r.listen(source)
-            said = r.recognize_google(audio, language="ko-KR")
+            said = r.recognize_google(audio)
             print("You said: ", said)
     except Exception as e:
         print("An error occurred: ", str(e))
@@ -88,11 +88,42 @@ def voiceToText():
     
     return said 
 
-# playsound 말고 pydub이나 pygame을 사용하는 것이 좋다.
+# playsound 말고 pydub이나 pygame을 사용하는 것이 좋다
 # text To Voice
 def textToVoice(text):
-     tts = gTTS(text=text, lang='ko')
-     filename='voice3.mp3'
-     tts.save(filename) # 파일을 만들고,
-     playsound.playsound(filename) # 해당 음성파일을 실행(즉, 음성을 말함)
-     os.remove(filename)
+    tts = gTTS(text=text)
+    filename='voice3.mp3'
+    tts.save(filename) # 파일을 만들고,
+    # Pygame mixer 초기화
+    pygame.mixer.init()
+    # 오디오 파일 로드
+    pygame.mixer.music.load(filename)
+    # 오디오 재생
+    pygame.mixer.music.play()
+    # 재생이 끝날 때까지 대기
+    while pygame.mixer.music.get_busy():
+        pygame.time.Clock().tick(10)
+    # 오디오 재생 중단
+    pygame.mixer.music.stop()
+    pygame.mixer.quit()
+    # 오디오 파일 삭제
+    os.remove(filename)
+
+def voice_stop():
+    # 오디오 재생 중단
+    pygame.mixer.music.stop()
+
+def voice_pause():
+    print("dubug1, voice_pause")
+    # 오디오 일시 정지
+    pygame.mixer.music.pause()
+
+def voice_unpause():
+    print("dubug2, voice_unpause")
+
+    # 오디오 다시 재생
+    filename='voice3.mp3'
+    pygame.mixer.music.unpause()
+    while pygame.mixer.music.get_busy():
+        pygame.time.Clock().tick(10)
+    os.remove(filename)

@@ -2,7 +2,7 @@ import streamlit as st
 from openai import OpenAI
 from common import voiceToText, textToVoice
 
-userprompt = """
+user_prompt = """
 사용자가 입력하는 대본을 보고 그 캐릭터가 되어 대답을 해주어야합니다.
 반드시 대본을 자세히 보고 말투, 생각하는 방식을 그 캐릭터에 이입하여야합니다.
 반드시 사용자에게 호의적인 태도로 말해야합니다.
@@ -155,7 +155,7 @@ if st.button("마이크 켜기"):
         with st.chat_message("assistant"):
             messages_with_persona = [
                 {"role": "system", "content": persona},  # 페르소나 추가
-                {"role": "user", "content": userprompt},
+                {"role": "user", "content": user_prompt},
             ]        
             messages_with_persona.extend([
                 {"role": m["role"], "content": m["content"]} 
