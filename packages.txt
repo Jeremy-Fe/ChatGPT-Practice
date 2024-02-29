@@ -1,1 +1,3 @@
 espeak
+libespeak1
+alsa-utils
