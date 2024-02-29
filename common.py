@@ -1,9 +1,9 @@
 import streamlit as st
 import openai
 import speech_recognition as sr
+import pyttsx3
 # from gtts import gTTS
 # import os
-import pyttsx3
 
 
 openai.api_key = st.secrets["OPENAI_API_KEY"]
