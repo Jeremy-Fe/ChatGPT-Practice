@@ -1,9 +1,9 @@
 import streamlit as st
 import openai
 import speech_recognition as sr
-import pyttsx3
-# from gtts import gTTS
-# import os
+# import pyttsx3
+from gtts import gTTS
+import os
 
 
 openai.api_key = st.secrets["OPENAI_API_KEY"]
@@ -90,16 +90,16 @@ def voiceToText():
 # 한국어 id : HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_KO-KR_HEAMI_11.0
 # 영어 ID : HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_EN-US_ZIRA_11.0
 def textToVoice(text):
-    voice_id = "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_EN-US_ZIRA_11.0"
-    engine = pyttsx3.init()
-    engine.setProperty('voice', voice_id)
-    engine.say(text)
+    # voice_id = "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_EN-US_ZIRA_11.0"
+    # engine = pyttsx3.init()
+    # engine.setProperty('voice', voice_id)
+    # engine.say(text)
 
 
-    engine.runAndWait()
-    # tts = gTTS(text=text)
-    # filename='voice3.mp3'
-    # tts.save(filename) # 파일을 만들고,
+    # engine.runAndWait()
+    tts = gTTS(text=text)
+    filename='voice3.mp3'
+    tts.save(filename) # 파일을 만들고,
 
-    # # 오디오 파일 삭제
-    # os.remove(filename)
+    # 오디오 파일 삭제
+    os.remove(filename)

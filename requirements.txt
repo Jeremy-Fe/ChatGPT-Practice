@@ -3,4 +3,4 @@ streamlit
 requests
 BeautifulSoup4
 SpeechRecognition
-pyttsx3
+gTTS
