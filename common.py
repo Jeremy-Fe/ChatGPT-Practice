@@ -1,9 +1,9 @@
 import streamlit as st
 import openai
 import speech_recognition as sr
-from gtts import gTTS
-import os
-import pygame
+# from gtts import gTTS
+# import os
+import pyttsx3
 
 
 openai.api_key = st.secrets["OPENAI_API_KEY"]
@@ -86,42 +86,20 @@ def voiceToText():
     
     return said 
 
-# playsound 말고 pydub이나 pygame을 사용하는 것이 좋다
 # text To Voice
+# 한국어 id : HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_KO-KR_HEAMI_11.0
+# 영어 ID : HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_EN-US_ZIRA_11.0
 def textToVoice(text):
-    tts = gTTS(text=text)
-    filename='voice3.mp3'
-    tts.save(filename) # 파일을 만들고,
-    # Pygame mixer 초기화
-    pygame.mixer.init()
-    # 오디오 파일 로드
-    pygame.mixer.music.load(filename)
-    # 오디오 재생
-    pygame.mixer.music.play()
-    # 재생이 끝날 때까지 대기
-    while pygame.mixer.music.get_busy():
-        pygame.time.Clock().tick(10)
-    # 오디오 재생 중단
-    pygame.mixer.music.stop()
-    pygame.mixer.quit()
-    # 오디오 파일 삭제
-    os.remove(filename)
+    voice_id = "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_EN-US_ZIRA_11.0"
+    engine = pyttsx3.init()
+    engine.setProperty('voice', voice_id)
+    engine.say(text)
 
-def voice_stop():
-    # 오디오 재생 중단
-    pygame.mixer.music.stop()
 
-def voice_pause():
-    print("dubug1, voice_pause")
-    # 오디오 일시 정지
-    pygame.mixer.music.pause()
+    engine.runAndWait()
+    # tts = gTTS(text=text)
+    # filename='voice3.mp3'
+    # tts.save(filename) # 파일을 만들고,
 
-def voice_unpause():
-    print("dubug2, voice_unpause")
-
-    # 오디오 다시 재생
-    filename='voice3.mp3'
-    pygame.mixer.music.unpause()
-    while pygame.mixer.music.get_busy():
-        pygame.time.Clock().tick(10)
-    os.remove(filename)
+    # # 오디오 파일 삭제
+    # os.remove(filename)
